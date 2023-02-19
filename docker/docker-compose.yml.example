@@ -1,11 +1,19 @@
-version: 'X'
+version: '3'
+
 services:
-  app_A:
-    # ...
-    # parâmetros
-    # ...
-  app_B:
-    # ...
-    # parâmetros
-    # ...
-  # ...
+  todofront:
+    build: todo-app/front-end/
+    restart: on-failure
+    ports:
+      - 3000:3000
+
+  todoback:
+    build: todo-app/back-end/
+    ports:
+      - 3001:3001
+
+  todotests:
+    build: todo-app/test/
+    depends-on:
+      - todofront
+      - todoback
